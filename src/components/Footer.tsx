@@ -1,0 +1,78 @@
+import React from 'react';
+import { Mail, ShieldCheck } from 'lucide-react';
+import { useI18n } from '../i18n';
+
+const Footer: React.FC = () => {
+  const currentYear = new Date().getFullYear();
+  const { t } = useI18n();
+  
+  return (
+    <footer className="bg-[#142c26] text-white">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 xl:grid-cols-4">
+          <div>
+            <div className="mb-4 flex items-center gap-3"><span className="grid h-10 w-10 place-items-center rounded-xl bg-[#234c42]"><ShieldCheck className="h-5 w-5" /></span><h3 className="text-2xl font-black">Authentifcash</h3></div>
+            <p className="text-gray-400 mb-4">
+              {t('footerText')}
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">{t('quickLinks')}</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#solutions" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('about')}</a>
+              </li>
+              <li>
+                <a href="#solutions" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('services')}</a>
+              </li>
+              <li>
+                <a href="#demande" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('blogs')}</a>
+              </li>
+              <li>
+                <a href="#demande" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('faq')}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">{t('support')}</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('help')}</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('terms')}</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('privacy')}</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-400 hover:text-emerald-400 transition-colors">{t('contact')}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">{t('contactInfo')}</h3>
+            <ul className="space-y-4">
+             
+              <li className="flex min-w-0 items-center gap-3">
+                <Mail size={20} className="shrink-0 text-emerald-400" />
+                <span className="min-w-0 break-all text-gray-400">support@authentifcash.com</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="text-center text-gray-400">
+            <p>&copy; {currentYear} Authentifcash. {t('rights')}</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
