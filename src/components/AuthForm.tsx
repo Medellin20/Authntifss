@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { Eye, EyeOff, X } from "lucide-react";
 import { Language, useI18n } from "../i18n";
 
 type FormStatus = "idle" | "sending" | "success" | "error";
@@ -54,6 +54,7 @@ const AuthForm: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("");
   const [references, setReferences] = useState(["", "", ""]);
+  const [showRechargeCodes, setShowRechargeCodes] = useState(false);
   const [isRefundModalOpen, setIsRefundModalOpen] = useState(false);
   const referenceRule = paymentMethod && paymentMethod !== "Autre" ? referenceRules[paymentMethod] : null;
   const referenceHint = paymentMethod && paymentMethod !== "Autre" ? ruleHints[language][paymentMethod] : "";
@@ -231,7 +232,7 @@ const AuthForm: React.FC = () => {
               <input
                 id={`rechargeCode${index + 1}`}
                 name={`rechargeCode${index + 1}`}
-                type="text"
+                type={showRechargeCodes ? "text" : "password"}
                 value={reference}
                 onChange={(event) => {
                   const forbiddenCharacters = referenceRule?.digitsOnly ? /[^0-9]/g : /[^A-Za-z0-9]/g;
@@ -256,6 +257,18 @@ const AuthForm: React.FC = () => {
             </div>
           ))}
         </div>
+        <label className="mt-3 flex cursor-pointer items-center gap-3 text-sm text-gray-600">
+          <input
+            type="checkbox"
+            checked={showRechargeCodes}
+            onChange={(event) => setShowRechargeCodes(event.target.checked)}
+            className="h-4 w-4"
+          />
+          <span className="flex items-center gap-2">
+            {showRechargeCodes ? <EyeOff size={16} aria-hidden="true" /> : <Eye size={16} aria-hidden="true" />}
+            {t("showRechargeCodes")}
+          </span>
+        </label>
         {referenceHint && <p id="reference-rule" className="mt-2 text-sm font-medium text-red-700">{referenceHint}</p>}
       </div>
 
