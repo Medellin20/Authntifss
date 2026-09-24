@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { useI18n } from '../i18n';
 
 const Footer: React.FC = () => {
@@ -56,11 +56,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">{t('contactInfo')}</h3>
             <ul className="space-y-4">
-             
-              <li className="flex min-w-0 items-center gap-3">
-                <Mail size={20} className="shrink-0 text-emerald-400" />
-                <span className="min-w-0 break-all text-gray-400">authentifgiftcards@gmail.com</span>
-              </li>
+              <li className="text-gray-400">{t('contact')}</li>
             </ul>
           </div>
         </div>

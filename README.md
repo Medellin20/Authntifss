@@ -48,6 +48,8 @@ Le formulaire appelle l'API Express `/api/send-email`, qui envoie ensuite le mes
 3. Configurez facultativement `EMAIL_TO` si le destinataire diffère de `EMAIL_USER`.
 4. Si le frontend et l'API sont déployés séparément, configurez `VITE_API_URL` au moment du build du frontend avec l'URL publique de l'API, sans slash final.
 
+Ne commitez jamais `server/.env` ni aucune valeur réelle de ces variables. Le fichier `server/.env.example` ne contient que des valeurs fictives et sert de modèle local.
+
 En développement, Vite transmet automatiquement les requêtes `/api` au serveur local sur le port 4001.
 
 ### Déploiement Netlify
@@ -57,6 +59,8 @@ Le fichier `netlify.toml` construit le frontend et redirige `/api/send-email` ve
 - `EMAIL_USER` : l'adresse Gmail utilisée pour l'envoi ;
 - `EMAIL_PASS` : un mot de passe d'application Google (16 caractères), jamais le mot de passe habituel ;
 - `EMAIL_TO` : l'adresse qui reçoit les soumissions (facultatif, `EMAIL_USER` par défaut).
+
+Ces variables doivent être configurées uniquement dans les variables d'environnement Netlify ou dans un fichier `.env` local ignoré par Git. Elles ne doivent jamais être utilisées dans `src/` ou préfixées par `VITE_`, car Vite les intégrerait au JavaScript public.
 
 Ne configurez pas `VITE_API_URL` sur Netlify : le frontend et la Function utilisent le même domaine. Après toute modification des variables, lancez un nouveau déploiement afin qu'elles soient prises en compte.
 
