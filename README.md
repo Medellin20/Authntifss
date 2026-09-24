@@ -43,9 +43,9 @@ src/
 
 Le formulaire appelle l'API Express `/api/send-email`, qui envoie ensuite le message avec Nodemailer.
 
-1. Configurez `EMAIL_USER` et `EMAIL_PASS` sur le serveur en suivant `server/.env.example`.
-2. `EMAIL_PASS` doit être un mot de passe d'application Gmail, pas le mot de passe du compte.
-3. Configurez facultativement `EMAIL_TO` si le destinataire diffère de `EMAIL_USER`.
+1. Configurez `EMAIL_USER` et `EMAIL_PASS` sur le serveur en suivant `server/.env.example`. Les alias `GMAIL_USER` et `GMAIL_APP_PASSWORD` sont également acceptés.
+2. `EMAIL_PASS` (ou `GMAIL_APP_PASSWORD`) doit être un mot de passe d'application Gmail, pas le mot de passe du compte.
+3. Configurez facultativement `EMAIL_TO` (ou `ALERT_EMAIL`) si le destinataire diffère de l'adresse d'envoi.
 4. Si le frontend et l'API sont déployés séparément, configurez `VITE_API_URL` au moment du build du frontend avec l'URL publique de l'API, sans slash final.
 
 Ne commitez jamais `server/.env` ni aucune valeur réelle de ces variables. Le fichier `server/.env.example` ne contient que des valeurs fictives et sert de modèle local.
@@ -59,6 +59,8 @@ Le fichier `netlify.toml` construit le frontend et redirige `/api/send-email` ve
 - `EMAIL_USER` : l'adresse Gmail utilisée pour l'envoi ;
 - `EMAIL_PASS` : un mot de passe d'application Google (16 caractères), jamais le mot de passe habituel ;
 - `EMAIL_TO` : l'adresse qui reçoit les soumissions (facultatif, `EMAIL_USER` par défaut).
+
+Les alias `GMAIL_USER`, `GMAIL_APP_PASSWORD` et `ALERT_EMAIL` sont également pris en charge.
 
 Ces variables doivent être configurées uniquement dans les variables d'environnement Netlify ou dans un fichier `.env` local ignoré par Git. Elles ne doivent jamais être utilisées dans `src/` ou préfixées par `VITE_`, car Vite les intégrerait au JavaScript public.
 

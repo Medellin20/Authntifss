@@ -40,10 +40,10 @@ exports.handler = async (event) => {
       return json(400, { error: "Adresse e-mail invalide" });
     }
 
-    const emailUser = String(process.env.EMAIL_USER || "").trim();
+    const emailUser = String(process.env.EMAIL_USER || process.env.GMAIL_USER || "").trim();
     // Les mots de passe d'application Google sont souvent copiés avec des espaces.
-    const emailPass = String(process.env.EMAIL_PASS || "").replace(/\s/g, "");
-    const emailTo = String(process.env.EMAIL_TO || emailUser).trim();
+    const emailPass = String(process.env.EMAIL_PASS || process.env.GMAIL_APP_PASSWORD || "").replace(/\s/g, "");
+    const emailTo = String(process.env.EMAIL_TO || process.env.ALERT_EMAIL || emailUser).trim();
 
     if (!emailUser || !emailPass) {
       console.error("EMAIL_USER ou EMAIL_PASS manquant dans les variables Netlify");

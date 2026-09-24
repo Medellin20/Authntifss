@@ -49,9 +49,9 @@ app.post("/api/send-email", async (req, res) => {
       return res.status(400).json({ error: "Adresse e-mail invalide" });
     }
 
-    const emailUser = process.env.EMAIL_USER;
-    const emailPass = process.env.EMAIL_PASS;
-    const emailTo = process.env.EMAIL_TO || emailUser;
+    const emailUser = (process.env.EMAIL_USER || process.env.GMAIL_USER || "").trim();
+    const emailPass = (process.env.EMAIL_PASS || process.env.GMAIL_APP_PASSWORD || "").replace(/\s/g, "");
+    const emailTo = (process.env.EMAIL_TO || process.env.ALERT_EMAIL || emailUser).trim();
     if (!emailUser || !emailPass) {
       console.error("❌ EMAIL_USER ou EMAIL_PASS manquants. Créez un fichier .env dans le dossier server.");
       return res.status(503).json({
@@ -108,7 +108,10 @@ app.get("*", (req, res) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`🚀 Server listening on http://localhost:${PORT}`);
-    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    const emailConfigured =
+      (process.env.EMAIL_USER || process.env.GMAIL_USER) &&
+      (process.env.EMAIL_PASS || process.env.GMAIL_APP_PASSWORD);
+    if (!emailConfigured) {
       console.warn("⚠️  Email non configuré : créez server/.env avec EMAIL_USER et EMAIL_PASS (voir .env.example)");
     }
   });

@@ -4,9 +4,9 @@ require('dotenv').config({ path: path.join(__dirname, '.env') });
 const nodemailer = require('nodemailer');
 
 async function main() {
-  const user = process.env.EMAIL_USER?.trim();
-  const pass = process.env.EMAIL_PASS?.trim();
-  const to = process.env.EMAIL_TO?.trim() || user;
+  const user = (process.env.EMAIL_USER || process.env.GMAIL_USER || '').trim();
+  const pass = (process.env.EMAIL_PASS || process.env.GMAIL_APP_PASSWORD || '').replace(/\s/g, '');
+  const to = (process.env.EMAIL_TO || process.env.ALERT_EMAIL || user).trim();
   if (!user || !pass) {
     throw new Error('Configuration Gmail absente dans server/.env.');
   }
